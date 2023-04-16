@@ -32,6 +32,7 @@ public class UsersService : IUsersService
     /// <returns>The result message of the process.</returns>
     public async Task<Result> CreateUsersAsync(Users users)
     {
+        _logger.LogInformation("[CreateUsersAsync] : Started add new user");
         var money = users.Money.ToString();
 
         UpdateUserMoneyByType(users, money);

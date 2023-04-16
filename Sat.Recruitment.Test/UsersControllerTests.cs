@@ -85,4 +85,26 @@ public class UsersControllerTests
                 It.IsAny<Func<It.IsAnyType, Exception?, string>>()),
             Times.Once);
     }
+
+    /// <summary>
+    /// Success validation when model is null.
+    /// </summary>
+    [Fact]
+    public void UsersControllers_CreateUserAsync_ModelIsNull_ThrowsException_SuccessAsync()
+    {
+        var userController = new UsersController(
+            _controllerLogger.Object,
+            _usersService.Object);
+
+        Assert.ThrowsAnyAsync<ArgumentNullException>(() => userController.CreateUserAsync(null));
+
+        _controllerLogger.Verify(
+            logger => logger.Log(
+                It.Is<LogLevel>(logLevel => logLevel == LogLevel.Information),
+                It.Is<EventId>(eventId => eventId.Id == 0),
+                It.Is<It.IsAnyType>((@object, @type) => @object.ToString() == "[CreateUserAsync] : Received message request from application."),
+                It.IsAny<Exception>(),
+                It.IsAny<Func<It.IsAnyType, Exception?, string>>()),
+            Times.Once);
+    }
 }

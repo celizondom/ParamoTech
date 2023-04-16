@@ -55,6 +55,15 @@ public class UsersServiceTests
             logger => logger.Log(
                 It.Is<LogLevel>(logLevel => logLevel == LogLevel.Information),
                 It.Is<EventId>(eventId => eventId.Id == 0),
+                It.Is<It.IsAnyType>((@object, @type) => @object.ToString() == "[CreateUsersAsync] : Started add new user"),
+                It.IsAny<Exception>(),
+                It.IsAny<Func<It.IsAnyType, Exception?, string>>()),
+            Times.Once);
+
+        _logger.Verify(
+            logger => logger.Log(
+                It.Is<LogLevel>(logLevel => logLevel == LogLevel.Information),
+                It.Is<EventId>(eventId => eventId.Id == 0),
                 It.Is<It.IsAnyType>((@object, @type) => @object.ToString() == "[CreateUsersAsync] : User created successfully"),
                 It.IsAny<Exception>(),
                 It.IsAny<Func<It.IsAnyType, Exception?, string>>()),
@@ -85,6 +94,15 @@ public class UsersServiceTests
 
         Assert.False(resultService.IsSuccess);
         Assert.Equal("The user is duplicated", resultService.Errors);
+
+        _logger.Verify(
+            logger => logger.Log(
+                It.Is<LogLevel>(logLevel => logLevel == LogLevel.Information),
+                It.Is<EventId>(eventId => eventId.Id == 0),
+                It.Is<It.IsAnyType>((@object, @type) => @object.ToString() == "[CreateUsersAsync] : Started add new user"),
+                It.IsAny<Exception>(),
+                It.IsAny<Func<It.IsAnyType, Exception?, string>>()),
+            Times.Once);
 
         _logger.Verify(
             logger => logger.Log(
@@ -126,6 +144,15 @@ public class UsersServiceTests
             logger => logger.Log(
                 It.Is<LogLevel>(logLevel => logLevel == LogLevel.Information),
                 It.Is<EventId>(eventId => eventId.Id == 0),
+                It.Is<It.IsAnyType>((@object, @type) => @object.ToString() == "[CreateUsersAsync] : Started add new user"),
+                It.IsAny<Exception>(),
+                It.IsAny<Func<It.IsAnyType, Exception?, string>>()),
+            Times.Once);
+
+        _logger.Verify(
+            logger => logger.Log(
+                It.Is<LogLevel>(logLevel => logLevel == LogLevel.Information),
+                It.Is<EventId>(eventId => eventId.Id == 0),
                 It.Is<It.IsAnyType>((@object, @type) => @object.ToString() == "[CreateUsersAsync] : User created successfully"),
                 It.IsAny<Exception>(),
                 It.IsAny<Func<It.IsAnyType, Exception?, string>>()),
@@ -157,6 +184,15 @@ public class UsersServiceTests
 
         Assert.True(resultService.IsSuccess);
         Assert.Equal("User created", resultService.Errors);
+
+        _logger.Verify(
+            logger => logger.Log(
+                It.Is<LogLevel>(logLevel => logLevel == LogLevel.Information),
+                It.Is<EventId>(eventId => eventId.Id == 0),
+                It.Is<It.IsAnyType>((@object, @type) => @object.ToString() == "[CreateUsersAsync] : Started add new user"),
+                It.IsAny<Exception>(),
+                It.IsAny<Func<It.IsAnyType, Exception?, string>>()),
+            Times.Once);
 
         _logger.Verify(
             logger => logger.Log(

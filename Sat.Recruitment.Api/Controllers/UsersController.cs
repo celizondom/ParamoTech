@@ -33,11 +33,19 @@ namespace Sat.Recruitment.Api.Controllers
             _usersService = usersService ?? throw new ArgumentNullException(nameof(usersService));
         }
 
+        /// <summary>
+        /// Call the creation of a new user.
+        /// </summary>
+        /// <param name="userModel">User data from Object model.</param>
+        /// <returns>Result message object asynchronous task.</returns>
         [HttpPost]
         [Route("/create-user")]
         public async Task<Result> CreateUserAsync(Users userModel)
         {
             _logger.LogInformation("[CreateUserAsync] : Received message request from application.");
+
+            ArgumentNullException.ThrowIfNull(userModel);
+
             var errors = ValidateErrors(userModel);
 
             if (errors != null && errors != "")
